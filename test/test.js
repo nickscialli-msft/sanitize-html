@@ -764,6 +764,18 @@ describe('sanitizeHtml', function() {
       }), '<a>normal text this should be removed</a><b>normal text</b>'
     );
   });
+  it('should have access to attributes', function() {
+    assert.equal(
+      sanitizeHtml('<a href="https://example.com">this is a link</a>', {
+        textFilter: function(text, tagName, attribs) {
+          if (tagName === 'a') {
+            return `${text} to ${attribs.href}`;
+          };
+          return text;
+        }
+      }), '<a href="https://example.com">this is a link to https://example.com</a>'
+    );
+  });
   it('should respect htmlparser2 options when passed in', function() {
     assert.equal(
       sanitizeHtml('<Archer><Sterling>I am</Sterling></Archer>', {
