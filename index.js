@@ -495,7 +495,7 @@ function sanitizeHtml(html, options, _recursing) {
       } else {
         const escaped = escapeHtml(text, false);
         if (options.textFilter && !addedText) {
-          result += options.textFilter(escaped, tag, lastFrame?.attribs);
+          result += options.textFilter(escaped, tag, lastFrame?.attribs || {});
         } else if (!addedText) {
           result += escaped;
         }
